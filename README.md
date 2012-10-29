@@ -84,11 +84,11 @@ Gotchas
 The filename attribute of the model needs to be unsafe otherwise on update if there is no new image upload it will wipe the filename from the DB.
 ```php 
 public function rules()
-	{
-		return array(
-			array('filename', 'unsafe'),
-		);
-	}
+{
+    return array(
+	array('filename', 'unsafe'),
+    );
+}
 ```
 For multiple uploads create a model for your upload and use a has_many relation.
 
@@ -98,7 +98,7 @@ This behavior can be used for any file attachments. Remove the processor for non
 
 Contribution
 ------------
-Pull request are welcomed.
+Pull requests are welcomed.
 
 Plans
 -----
