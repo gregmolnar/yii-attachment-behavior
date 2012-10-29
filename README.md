@@ -1,7 +1,8 @@
 Yii Attachment Behavior
 =======================
 
-File uploads is a very common task and the goal of this extension is to make it easy and DRY.
+File uploads are a very common task and the goal of this extension is to make it easy and DRY.
+This extension uploads the file to the server, renames the file and saves the path to the database.
 
 Installation
 ------------
@@ -18,11 +19,14 @@ public function behaviors()
 	return array(
 		'image' => array(
 			'class' => 'ext.AttachmentBehavior.AttachmentBehavior',
+			# Should be a DB field to store path/filename
 			'attribute' => 'filename',
+			# Default image to return if no image path is found in the DB
 			//'fallback_image' => 'images/sample_image.gif',
 			'path' => "uploads/:model/:id.:ext",
 			'processors' => array(
 				array(
+					# Currently GD Image Processor and Imagick Supported
 					'class' => 'ImagickProcessor',
 					'method' => 'resize',
 					'params' => array(
@@ -33,6 +37,8 @@ public function behaviors()
 				)
 			),
 			'styles' => array(
+				# name => size 
+				# use ! if you would like 'keepratio' => false
 				'thumb' => '!100x60',
 			)			
 		),
@@ -76,7 +82,19 @@ echo '<img src="'.$model->Attachment.'" />'; //base image
 Gotchas
 -------
 The filename attribute of the model needs to be unsafe otherwise on update if there is no new image upload it will wipe the filename from the DB.
+```php 
+public function rules()
+	{
+		return array(
+			array('filename', 'unsafe'),
+		);
+	}
+```
 For multiple uploads create a model for your upload and use a has_many relation.
+
+Additional Information
+----------------------
+This behavior can be used for any file attachments. Remove the processor for non images.
 
 Contribution
 ------------
@@ -87,4 +105,5 @@ Plans
 * validation
 * separate fallback image for styles
 * fix "Trying to set unsafe attribute" warning
+* document different image processors 
 
