@@ -1,5 +1,6 @@
 Yii Attachment Behavior
 =======================
+[![endorse](http://api.coderwall.com/gregmolnar/endorsecount.png)](http://coderwall.com/gregmolnar)
 
 File uploads are a very common task and the goal of this extension is to make it easy and DRY.
 This extension uploads the file to the server, renames the file and saves the path to the database.
