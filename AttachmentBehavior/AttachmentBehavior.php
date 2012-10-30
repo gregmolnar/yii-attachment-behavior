@@ -3,7 +3,7 @@
  * AttachmentBehavior class file.
  *
  * @author Greg Molnar 
- * @link http://www.yiiframework.com/
+ * @link https://github.com/gregmolnar/yii-attachment-behavior/
  * @copyright Copyright &copy; 2008-2011 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
