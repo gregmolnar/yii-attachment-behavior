@@ -87,7 +87,7 @@ The filename attribute of the model needs to be unsafe otherwise on update if th
 public function rules()
 {
     return array(
-	array('filename', 'unsafe'),
+		array('filename', 'unsafe'),
     );
 }
 ```
