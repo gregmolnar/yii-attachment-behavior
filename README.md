@@ -12,7 +12,7 @@ Copy the AttachmentBehavior folder into the extensions folder of you app.
 
 Usage
 ----
-
+Add a field to your model to store the filename. By default it is called 'filename' but it is configurable.
 In your model attach the behavior:
 ```php
 public function behaviors()
