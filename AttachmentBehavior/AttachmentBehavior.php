@@ -90,14 +90,14 @@ class AttachmentBehavior extends CActiveRecordBehavior {
     {
         if($style == ''){
             if($this->hasAttachment())
-                return $this->Owner->filename;
+                return $this->Owner->{$this->attribute};
             elseif($this->fallback_image != '')
                 return $this->fallback_image;
             else
                 return '';
         }else{
             if(isset($this->styles[$style])){
-                $im = preg_replace('/\.(.*)$/','-'.$style.'\\0',$this->Owner->filename);                
+                $im = preg_replace('/\.(.*)$/','-'.$style.'\\0',$this->Owner->{$this->attribute});                
                 if(file_exists($im))
                     return  $im;
                 elseif(isset($this->fallback_image))
@@ -112,7 +112,7 @@ class AttachmentBehavior extends CActiveRecordBehavior {
      */
     public function hasAttachment()
     {
-        return file_exists($this->Owner->filename);
+        return file_exists($this->Owner->{$this->attribute});
     }
     
     /**
