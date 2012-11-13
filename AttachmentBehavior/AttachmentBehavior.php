@@ -38,7 +38,7 @@
  * @property string $path
  * @private string $filename
  * @private integer $filesize 
- * @private string $ParsedPath
+ * @private string $parsedPath
  * */
 class AttachmentBehavior extends CActiveRecordBehavior {    
     
@@ -151,7 +151,7 @@ class AttachmentBehavior extends CActiveRecordBehavior {
             preg_match('/\.(.*)$/',$file->name,$matches);
             $this->file_extension = end($matches);
             $this->filename = $file->name;
-            $path = $this->ParsedPath;
+            $path = $this->parsedPath;
         
             preg_match('|^(.*[\\\/])|', $path, $match);
             $folder = end($match);      
@@ -213,6 +213,18 @@ class AttachmentBehavior extends CActiveRecordBehavior {
     {
         $needle = array(':folder', ':model', ':id', ':ext', ':filename', ':custom');
         $replacement = array($this->folder, get_class($this->Owner), $this->Owner->primaryKey,$this->file_extension, $this->filename, $custom);
+        if(preg_match_all('/:\\{([^\\}]+)\\}/', $this->path, $matches, PREG_SET_ORDER)) {
+            foreach($matches as $match) {
+                $valuePath = explode('.', $match[1]);
+                $value = $this->owner;
+                foreach($valuePath as $attributeName) {
+                    if(is_object($value))
+                        $value = $value->{$attributeName};
+                }
+                $needle[] = $match[0];
+                $replacement[] = $value;
+            }
+        }
         return str_replace($needle, $replacement, $this->path);
     }
 
@@ -339,9 +351,9 @@ class ImagickProcessor
     
     public function setImageColorSpace($color_space = Imagick::COLORSPACE_GRAY)
     {
-    $im = new Imagick($this->image);
-    $im->setImageColorSpace($color_space);
-    $im->writeImage($this->output_path);
+        $im = new Imagick($this->image);
+        $im->setImageColorSpace($color_space);
+        $im->writeImage($this->output_path);
     
     }
 }

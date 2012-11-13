@@ -77,8 +77,24 @@ Create the upload folder and upload a file.
 To retrieve the image:
 ```php
 echo '<img src="'.$model->getAttachment('thumb').'" />'; //thumbnail
-echo '<img src="'.$model->Attachment.'" />'; //base image
+echo '<img src="'.$model->attachment.'" />'; //base image
 ```
+
+Advanced options
+----------------
+If you want you can use attribute values of the object that you extended in the path template. You can do this by referencing these attributes like this: 
+```php
+public function behaviors()
+{
+	return array(
+		'image' => array(
+			//...
+			'path' => ":folder/:{attributeName}/:id.:ext",
+			//...
+```
+Note that the curly braces are mandatory in this case.
+
+You can even use the attributes of a relation or a subrelation by using the `.` as a separator like so `:{relationName.attributeName}` or like so `:{relationName.subRelationName.attributeName}`. Note that this only works with HAS_ONE, BELONGS_TO or any other custom getter relation (that returns a single object instance and contains the given attribute name, duhh!! ;).
 
 Gotchas
 -------
