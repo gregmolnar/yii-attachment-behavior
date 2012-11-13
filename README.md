@@ -94,7 +94,7 @@ public function behaviors()
 ```
 Note that the curly braces are mandatory in this case.
 
-You can even use the attributes of a relation or a subrelation by using the `.` as a separator like so `:{relationName.attributeName}` or like so `:{relationName.subRelationName.attributeName}`. Note that this only works with HAS_ONE, BELONGS_TO or any other custom getter relation (that returns a single object instance and contains the given attribute name, duhh!! ;).
+You can even use the attributes of a relation or a subrelation by using `.` as a separator like so `:{relationName.attributeName}` or like so `:{relationName.subRelationName.attributeName}`. Note that this only works with `HAS_ONE`, `BELONGS_TO` or any other custom getter relation (that returns a single object instance and contains the given attribute name, duhh!! ;).
 
 Gotchas
 -------
