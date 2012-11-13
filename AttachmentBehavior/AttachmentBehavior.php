@@ -214,7 +214,15 @@ class AttachmentBehavior extends CActiveRecordBehavior {
         $needle = array(':folder', ':model', ':id', ':ext', ':filename', ':custom');
         $replacement = array($this->folder, get_class($this->Owner), $this->Owner->primaryKey,$this->file_extension, $this->filename, $custom);
         return str_replace($needle, $replacement, $this->path);
-    }    
+    }
+
+
+    public function UnsafeAttribute($name, $value)
+    {
+        var_dump(true);exit;
+        if($name != $this->attribute)
+            parent::onUnsafeAttribute($name, $value);
+    }
 }
 
 class AttachmentUploadedFile
@@ -232,7 +240,11 @@ class AttachmentUploadedFile
     
     public function saveAs($file){
         if($this->_error==UPLOAD_ERR_OK){
-            return rename($this->file_name, $file);
+            if(is_uploaded_file($this->file_name)){
+                return move_uploaded_file($this->file_name, $file);
+            }else{
+                return rename($this->file_name, $file);    
+            }            
         }else return false;
     }
 }
