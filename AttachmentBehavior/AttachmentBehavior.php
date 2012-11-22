@@ -155,7 +155,7 @@ class AttachmentBehavior extends CActiveRecordBehavior {
         
             preg_match('|^(.*[\\\/])|', $path, $match);
             $folder = end($match);      
-            if(!is_dir($folder))mkdir($folder);
+            if(!is_dir($folder))mkdir($folder, 0777, true);
         
             $file->saveAs($path,false);
             $file_type = filetype($path);       
