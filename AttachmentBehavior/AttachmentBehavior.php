@@ -240,10 +240,12 @@ class AttachmentBehavior extends CActiveRecordBehavior {
 class AttachmentUploadedFile
 {
     public $name, $_error ;
-    
+
     public static function getInstance($model, $attribute){
+        if(empty($_FILES[$c->modelName]['name'][$attribute]))return null;
         $c =  new AttachmentUploadedFile;
         $c->modelName = get_class($model);
+        if(empty($_FILES[$c->modelName]))return null;
         $c->name = $_FILES[$c->modelName]['name'][$attribute];
         $c->file_name = $_FILES[$c->modelName]['tmp_name'][$attribute];
         if(!file_exists($c->file_name))return null;
