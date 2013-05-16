@@ -280,7 +280,7 @@ class GDProcessor
     
     public function resize($params)
     {
-        switch($this->file_extension){
+        switch(strtolower($this->file_extension)){
             case "jpg";
                 $original = imagecreatefromjpeg($this->image);
                 $output_function = 'imagejpeg';
