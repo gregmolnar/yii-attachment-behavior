@@ -345,7 +345,6 @@ class ImagickProcessor
     public function resize($params = array())
     {
         $im = new Imagick($this->image);
-        $im->setImageFormat('jpeg');
         $im->thumbnailImage($params['width'], $params['height'], $params['keepratio']);
         $im->writeImage($this->output_path);
     }
