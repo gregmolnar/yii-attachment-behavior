@@ -116,6 +116,27 @@ class AttachmentBehavior extends CActiveRecordBehavior {
     }
     
     /**
+     * return an array of all attachments available to instance
+     */
+    public function listAttachments()
+    {
+        $array = array();
+        if($this->hasAttachment())
+        {
+            $array[] = $this->Owner->{$this->attribute};
+            foreach($this->styles as $k => $v)
+            {
+                $im = preg_replace('/\.(.*)$/','-'.$k.'\\0',$this->Owner->{$this->attribute});
+                if(file_exists($im))
+                    $array[] = $im;
+            }
+        }
+        return $array;
+    }
+
+     
+    
+    /**
      * deletes the attachment
      */
     public function deleteAttachment()
